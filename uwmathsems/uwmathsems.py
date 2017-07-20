@@ -1,6 +1,17 @@
 """
-This is a script to fetch data about Math Seminars from the notice board and
- then create a ics file from it
+
+A script to fetch data about math seminars from the
+faculty notice board and then create an ICS file from it.
+
+Packages required:
+1. Selenium (can be installed via pip)
+2. Chrome driver (available from
+https://sites.google.com/a/chromium.org/chromedriver/)
+
+License: CC-BY-SA
+
+Author: Sanketh Menda
+Website: sanketh.com
 
 """
 
@@ -42,8 +53,13 @@ time.sleep(1)
 
 Seminars = []
 
-for i in range(1,4):
-    Seminar = driver.find_element_by_xpath('//dl/dt[%d]/a' % i)
+for i in range(1,100):
+    try:
+        Seminar = driver.find_element_by_xpath('//dl/dt[%d]/a' % i)
+    except:
+        print("Created uwmathsems.ics with %d listings" % i)
+        break
+    
     Seminar.click()
     time.sleep(1)
     Type = driver.find_element_by_xpath('//h1').text
